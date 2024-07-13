@@ -5,13 +5,13 @@ import kotlinx.parcelize.Parcelize
 
 
 @Parcelize
-data class Post (val id: Int,
-                 val imageResource: Int,
-                 var title: String,
-                 var content: String,
-                 val seller: String,
-                 var price: Int,
-                 var address: String,
-                 var numLike: Int,
-                 var numChatting: Int) : Parcelable{
+data class Post (val id: Int = -1,
+                 val imageResource: Int = R.drawable.no_image,
+                 var title: String = "no title",
+                 var content: String = "no content",
+                 val seller: String = "no seller",
+                 var price: Int = 0,
+                 var address: String = "no address",
+                 var numLike: Int = -1,
+                 var numChatting: Int = -1) : Parcelable{
 }
