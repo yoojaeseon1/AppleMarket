@@ -64,7 +64,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layoutHeader">
-
     </androidx.recyclerview.widget.RecyclerView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnMainFloating"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_margin="40dp"
+        android:src="@drawable/ic_main_to_top"
+        android:visibility="invisible"
+        app:shapeAppearance="?attr/cornerFamily"
+        app:fabCustomSize="75dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

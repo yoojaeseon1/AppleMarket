@@ -55,6 +55,7 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Log.d("lifeCycle", "onCreate()")
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(binding.root)
@@ -77,13 +78,81 @@ class MainActivity : AppCompatActivity() {
 //                Toast.makeText(this@MainActivity, title, Toast.LENGTH_SHORT).show()
                 val intentToDetail = Intent(this@MainActivity, DetailActivity::class.java)
                 intentToDetail.putExtra("post", posts[position])
+//                Log.d("position", position.toString())
                 startActivity(intentToDetail)
+            }
+
+            override fun onLongClick(view: View, index: Int) {
+
+//                Log.d("click", "longCLick")
+//                posts.removeAt(position)
+                for ((postsIndex, post) in posts.withIndex()) {
+                    if(post.index == index) {
+                        posts.removeAt(postsIndex)
+                        break
+                    }
+                }
+                (binding.postRecyclerView.layoutManager as LinearLayoutManager).removeAllViews()
             }
         }
 
         binding.btnPostNotification.setOnClickListener {
             notification()
         }
+
+//        val fadeInAnimation = AnimationUtils.loadAnimation(applicationContext, R.anim.fade_in)
+//        fadeInAnimation.duration = 1000
+//        val fadeOutAnimation = AnimationUtils.loadAnimation(applicationContext, R.anim.fade_out)
+//        fadeOutAnimation.duration = 1000
+//        binding.btnMainFloating.animation = fadeOutAnimation
+
+        binding.btnMainFloating.visibility = View.VISIBLE
+        binding.postRecyclerView.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+
+            val firstVisiblePosition =
+                (binding.postRecyclerView.layoutManager as LinearLayoutManager)
+                    .findFirstVisibleItemPosition()
+//            Log.d("firstVisiblePosition", firstVisiblePosition.toString())
+            if(firstVisiblePosition == 0) {
+//                Log.d("firstVisiblePosition", "into 0")
+                binding.btnMainFloating.animate().alpha(0.0f).setDuration(1000)
+//                binding.btnMainFloating.animation = fadeOutAnimation
+//                binding.btnMainFloating.visibility = View.INVISIBLE
+            } else{
+//                Log.d("firstVisiblePosition", "into more 0")
+                binding.btnMainFloating.animate().alpha(1.0f).setDuration(1000)
+//                binding.btnMainFloating.animation = fadeInAnimation
+            }
+//            Log.d("scroll", "(${scrollX}, ${scrollY})")
+//            Log.d("scroll", "old (${oldScrollX}, ${oldScrollY})")
+//            if(oldScrollY == 0) {
+//                binding.btnMainFloating.animation = fadeOutAnimation
+//                binding.btnMainFloating.visibility = View.GONE
+//            } else {
+//                binding.btnMainFloating.animation = fadeInAnimation
+//                binding.btnMainFloating.visibility = View.VISIBLE
+//
+//            }
+        }
+
+        binding.btnMainFloating.setOnClickListener {
+//            binding.btnMainFloating.animation = fadeOutAnimation
+            binding.postRecyclerView.scrollToPosition(0)
+//            binding.btnMainFloating.animate().alpha(0.0f).setDuration(1000)
+//            binding.btnMainFloating.visibility = View.INVISIBLE
+//            binding.btnMainFloating.visibility = View.GONE
+//            binding.btnMainFloating.visibility = View.VISIBLE
+        }
+
+//        binding.btnMainFloating.isScrollbarFadingEnabled = true
+//
+////        binding.btnMainFloating.scrollBarFadeDuration = 3000
+//        binding.btnMainFloating.setOnClickListener {
+//        binding.btnMainFloating.visibility = View.INVISIBLE
+//
+////            binding.btnMainFloating.
+//
+//        }
 
         this.onBackPressedDispatcher.addCallback(this, backPressedCallback)
     }
@@ -131,15 +200,14 @@ class MainActivity : AppCompatActivity() {
             setContentTitle("키워드 알림")
             setContentText("설정한 키워드에 대한 알림이 도착했습니다!!")
         }
-
         manager.notify(11, builder.build())
-
     }
 
 
     override fun onPause() {
+        Log.d("lifeCycle", "onPause()")
         super.onPause()
-        Log.d("lifeCycle", "start onPause()")
+//        Log.d("lifeCycle", "start onPause()")
 //        val builder = AlertDialog.Builder(this)
 //        builder.setTitle("종료")
 //        builder.setMessage("정말 종료하시겠습니까?")
@@ -166,7 +234,7 @@ class MainActivity : AppCompatActivity() {
 ////        builder.setNeutralButton("중립", null)
 //
 //        builder.show()
-        Log.d("lifeCycle", "end onPause()")
+//        Log.d("lifeCycle", "end onPause()")
 
 //        var builder = AlertDialog.Builder(this)
 //        builder.setTitle("기본 다이얼로그 타이틀")
@@ -191,6 +259,17 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    override fun onResume() {
+        Log.d("lifeCycle", "onResume()")
+        super.onResume()
+    }
+
+
+    override fun onRestart() {
+        Log.d("lifeCycle", "onRestart()")
+        super.onRestart()
+    }
+
     override fun finish() {
         Log.d("lifeCycle", "onfinish()")
         super.finish()
@@ -209,6 +288,4 @@ class MainActivity : AppCompatActivity() {
         super.onDetachedFromWindow()
         Log.d("lifeCycle", "onDetachedFromWindow()")
     }
-
-
 }
