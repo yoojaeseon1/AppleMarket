@@ -1,16 +1,17 @@
 package com.android.applemarket
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.android.applemarket.databinding.PostRecyclerViewBinding
-import java.lang.StringBuilder
 
 class PostAdapter(val posts: MutableList<Post>) : RecyclerView.Adapter<PostAdapter.Holder>(){
 
     interface PostClick{
         fun onClick(view: View, position: Int)
+        fun onLongClick(view: View, index: Int)
     }
 
     var postClick: PostClick? = null
@@ -21,7 +22,9 @@ class PostAdapter(val posts: MutableList<Post>) : RecyclerView.Adapter<PostAdapt
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val binding = PostRecyclerViewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return Holder(binding)
+        val holder = Holder(binding)
+        Log.d("create holder", holder.hashCode().toString())
+        return holder
     }
 
     override fun getItemCount(): Int {
@@ -29,17 +32,30 @@ class PostAdapter(val posts: MutableList<Post>) : RecyclerView.Adapter<PostAdapt
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-
+        val currentPost = posts[position]
+        Log.d("bind holder", position.toString())
         holder.binding.root.setOnClickListener {
             postClick?.onClick(it, position)
         }
 
-        val currentPost = posts[position]
+        holder.binding.root.setOnLongClickListener {
+            postClick?.onLongClick(it, currentPost.index)
+            true
+        }
+
+//        holder.postId = holder.binding.tvPostId.toString()
+//        val postId = holder.binding.tvPostId
+
+//        for (post in posts) {
+//            if(post.id.toString() == postId.text.toString())
+//                currentPost = post
+//        }
 
         holder.image.setImageResource(currentPost.imageResource)
         holder.title.text = currentPost.title
         holder.address.text = currentPost.address
         holder.price.text = AppleMarketUtils.makePriceFormat(currentPost.price)
+        holder.postId.text = currentPost.index.toString()
     }
 
 
@@ -50,6 +66,7 @@ class PostAdapter(val posts: MutableList<Post>) : RecyclerView.Adapter<PostAdapt
         val image = binding.postImage
         val address = binding.postAddress
         val price = binding.postPrice
+        val postId = binding.tvPostId
     }
 
 }
