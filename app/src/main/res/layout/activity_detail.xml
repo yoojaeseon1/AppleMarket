@@ -30,31 +30,37 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/layoutDetailUserInfo"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
+                android:background="@drawable/border_line_bottom"
                 android:padding="10dp"
-                app:layout_constraintTop_toBottomOf="@+id/ivDetail"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:layout_constraintTop_toBottomOf="@+id/ivDetail">
 
                 <ImageView
                     android:id="@+id/imageProfile"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:src="@drawable/ic_profile"
+                    android:background="@drawable/shape_detail_profile"
+                    android:padding="15dp"
+                    android:src="@drawable/ic_user"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/white" />
 
                 <TextView
                     android:id="@+id/userId"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
                     android:text="난쉽"
                     android:textSize="20sp"
-                    android:layout_marginStart="10dp"
                     app:layout_constraintStart_toEndOf="@+id/imageProfile"
                     app:layout_constraintTop_toTopOf="@+id/imageProfile" />
 
@@ -62,45 +68,44 @@
                     android:id="@+id/userAddress"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="동래구 온천제2동"
-                    android:textSize="15sp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="5dp"
-                    app:layout_constraintTop_toBottomOf="@+id/userId"
-                    app:layout_constraintStart_toEndOf="@+id/imageProfile" />
+                    android:text="동래구 온천제2동"
+                    android:textSize="15sp"
+                    app:layout_constraintStart_toEndOf="@+id/imageProfile"
+                    app:layout_constraintTop_toBottomOf="@+id/userId" />
 
                 <TextView
                     android:id="@+id/tvOndo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="39.3 ºC"
-                    android:textStyle="bold"
-                    android:textSize="15sp"
                     android:layout_marginEnd="10dp"
+                    android:text="39.3 ºC"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/ivDetailOndo"
                     app:layout_constraintEnd_toStartOf="@+id/ivDetailOndo"
-                    app:layout_constraintTop_toTopOf="@+id/ivDetailOndo"
-                    app:layout_constraintBottom_toBottomOf="@+id/ivDetailOndo"/>
+                    app:layout_constraintTop_toTopOf="@+id/ivDetailOndo" />
 
                 <ImageView
                     android:id="@+id/ivDetailOndo"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:src="@drawable/ic_ondo"
+                    app:layout_constraintBottom_toTopOf="@+id/tvMannerOndo"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toTopOf="@+id/tvMannerOndo" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/tvMannerOndo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
                     android:text="매너온도"
                     android:textSize="10sp"
-                    android:layout_marginEnd="10dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/ivDetailOndo"
-                    />
+                    app:layout_constraintTop_toBottomOf="@+id/ivDetailOndo" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
@@ -139,44 +144,52 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <ImageView
+        <CheckBox
             android:id="@+id/ivLike"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/ic_like"
+            android:background="@drawable/selector_main_page_like"
+            android:button="@android:color/transparent"
+            android:checked="false"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
 
         <TextView
             android:id="@+id/tvDetailPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="130dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
             android:text="180,000원"
             android:textSize="20sp"
             android:textStyle="bold"
+            android:background="@drawable/border_line_start"
             android:layout_marginStart="20dp"
             app:layout_constraintStart_toEndOf="@+id/ivLike"
             app:layout_constraintTop_toTopOf="@+id/ivLike"
             app:layout_constraintBottom_toBottomOf="@+id/ivLike" />
 
-        <Button
+        <android.widget.Button
             android:id="@+id/btnChatting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="채팅하기"
+            android:textStyle="bold"
             android:textSize="15sp"
+            android:textColor="@color/white"
+            android:background="@drawable/shape_btn_chatting"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <Button
+    <android.widget.Button
         android:id="@+id/btnBackToMain"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/ic_back_detail"
+        android:backgroundTint="@color/black"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_margin="20dp" />

@@ -2,16 +2,23 @@ package com.android.applemarket
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
+import java.time.LocalDateTime
 
 
 @Parcelize
-data class Post (val index: Int = -1,
+data class Post (val user: User = User(),
                  val imageResource: Int = R.drawable.no_image,
-                 var title: String = "no title",
-                 var content: String = "no content",
-                 val seller: String = "no seller",
+                 var title: String = "empty title",
+                 var content: String = "empty content",
                  var price: Int = 0,
-                 var address: String = "no address",
-                 var numLike: Int = -1,
-                 var numChatting: Int = -1) : Parcelable{
-}
+                 var numChatting: Int = 0,
+                 val index: Int = indexCount++,
+                 val likes: MutableList<Like> = mutableListOf(),
+                 val createdDate: LocalDateTime = LocalDateTime.now(),
+                 var updatedDate: LocalDateTime? = null) : Parcelable {
+
+     companion object {
+         private var indexCount = 0
+     }
+
+ }
