@@ -2,8 +2,10 @@ package com.android.applemarket
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.media.AudioAttributes
 import android.media.RingtoneManager
 import android.net.Uri
@@ -26,13 +28,15 @@ import com.android.applemarket.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
+    private val loginedUser = Dummy.loginedUser
+
     private val binding: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
     private val backPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
-            Toast.makeText(this@MainActivity, "push back button", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this@MainActivity, "push back button", Toast.LENGTH_SHORT).show()
             val builder = AlertDialog.Builder(this@MainActivity)
             builder.setTitle("종료")
             builder.setMessage("정말 종료하시겠습니까?")
@@ -86,13 +90,46 @@ class MainActivity : AppCompatActivity() {
 
 //                Log.d("click", "longCLick")
 //                posts.removeAt(position)
-                for ((postsIndex, post) in posts.withIndex()) {
-                    if(post.index == index) {
-                        posts.removeAt(postsIndex)
-                        break
+                val builder = AlertDialog.Builder(this@MainActivity)
+                builder.setTitle("상품 삭제")
+                builder.setMessage("상품을 정말로 삭제하시겠습니까?")
+                builder.setIcon(R.drawable.ic_comment)
+
+                val listener = object : DialogInterface.OnClickListener {
+                    override fun onClick(dialog: DialogInterface?, which: Int) {
+                        when(which) {
+                            DialogInterface.BUTTON_POSITIVE -> {
+                                for ((postsIndex, post) in posts.withIndex()) {
+                                    if(post.index == index) {
+                                        posts.removeAt(postsIndex)
+                                        break
+                                    }
+                                }
+                                adapter.notifyDataSetChanged()
+                            }
+                            DialogInterface.BUTTON_NEGATIVE -> null
+                        }
                     }
                 }
-                (binding.postRecyclerView.layoutManager as LinearLayoutManager).removeAllViews()
+
+                builder.setPositiveButton("확인", listener)
+                builder.setNegativeButton("취소", listener)
+                builder.show()
+
+//                posts.removeAt(index)
+
+//                for ((postsIndex, post) in posts.withIndex()) {
+//                    if(post.index == index) {
+//                        posts.removeAt(postsIndex)
+//                        break
+//                    }
+//                }
+
+//                adapter.notifyDataSetChanged()
+            }
+
+            override fun getColorStateList(resId: Int): ColorStateList {
+                return resources.getColorStateList(resId, null)
             }
         }
 
@@ -267,6 +304,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onRestart() {
         Log.d("lifeCycle", "onRestart()")
+        binding.postRecyclerView.adapter?.notifyDataSetChanged()
         super.onRestart()
     }
 
