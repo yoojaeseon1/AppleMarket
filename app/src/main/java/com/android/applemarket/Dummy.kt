@@ -35,10 +35,6 @@ class Dummy (){
         val post10 = Post(user10, R.drawable.sample10, "셀린느 버킷 가방", "22년 신세계 대전 구매입니당\n\n셀린느 버킷백\n\n구매해서 몇번사용했어요\n\n까짐 스크래치 없습니다.\n\n타지역에서 보내는거라 택배로 진행합니당!\n",  190000,  6)
 
 
-//        post1.likes.add(Like(user1))
-
-
-
         posts.add(post1)
         posts.add(post2)
         posts.add(post3)

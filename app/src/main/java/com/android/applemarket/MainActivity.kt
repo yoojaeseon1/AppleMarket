@@ -36,7 +36,6 @@ class MainActivity : AppCompatActivity() {
 
     private val backPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
-//            Toast.makeText(this@MainActivity, "push back button", Toast.LENGTH_SHORT).show()
             val builder = AlertDialog.Builder(this@MainActivity)
             builder.setTitle("종료")
             builder.setMessage("정말 종료하시겠습니까?")
@@ -74,22 +73,16 @@ class MainActivity : AppCompatActivity() {
 
         binding.postRecyclerView.adapter = adapter
         binding.postRecyclerView.layoutManager = LinearLayoutManager(this)
-//        binding.postRecyclerView.layoutManager = ConstraintLayoutManager(this)
 
         adapter.postClick = object : PostAdapter.PostClick {
             override fun onClick(view: View, position: Int) {
-//                val title = posts[position].title
-//                Toast.makeText(this@MainActivity, title, Toast.LENGTH_SHORT).show()
                 val intentToDetail = Intent(this@MainActivity, DetailActivity::class.java)
                 intentToDetail.putExtra("post", posts[position])
-//                Log.d("position", position.toString())
                 startActivity(intentToDetail)
             }
 
             override fun onLongClick(view: View, index: Int) {
 
-//                Log.d("click", "longCLick")
-//                posts.removeAt(position)
                 val builder = AlertDialog.Builder(this@MainActivity)
                 builder.setTitle("상품 삭제")
                 builder.setMessage("상품을 정말로 삭제하시겠습니까?")
@@ -115,17 +108,6 @@ class MainActivity : AppCompatActivity() {
                 builder.setPositiveButton("확인", listener)
                 builder.setNegativeButton("취소", listener)
                 builder.show()
-
-//                posts.removeAt(index)
-
-//                for ((postsIndex, post) in posts.withIndex()) {
-//                    if(post.index == index) {
-//                        posts.removeAt(postsIndex)
-//                        break
-//                    }
-//                }
-
-//                adapter.notifyDataSetChanged()
             }
 
             override fun getColorStateList(resId: Int): ColorStateList {
@@ -136,60 +118,22 @@ class MainActivity : AppCompatActivity() {
         binding.btnPostNotification.setOnClickListener {
             notification()
         }
-
-//        val fadeInAnimation = AnimationUtils.loadAnimation(applicationContext, R.anim.fade_in)
-//        fadeInAnimation.duration = 1000
-//        val fadeOutAnimation = AnimationUtils.loadAnimation(applicationContext, R.anim.fade_out)
-//        fadeOutAnimation.duration = 1000
-//        binding.btnMainFloating.animation = fadeOutAnimation
-
         binding.btnMainFloating.visibility = View.VISIBLE
         binding.postRecyclerView.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
 
             val firstVisiblePosition =
                 (binding.postRecyclerView.layoutManager as LinearLayoutManager)
                     .findFirstVisibleItemPosition()
-//            Log.d("firstVisiblePosition", firstVisiblePosition.toString())
             if(firstVisiblePosition == 0) {
-//                Log.d("firstVisiblePosition", "into 0")
                 binding.btnMainFloating.animate().alpha(0.0f).setDuration(1000)
-//                binding.btnMainFloating.animation = fadeOutAnimation
-//                binding.btnMainFloating.visibility = View.INVISIBLE
             } else{
-//                Log.d("firstVisiblePosition", "into more 0")
                 binding.btnMainFloating.animate().alpha(1.0f).setDuration(1000)
-//                binding.btnMainFloating.animation = fadeInAnimation
             }
-//            Log.d("scroll", "(${scrollX}, ${scrollY})")
-//            Log.d("scroll", "old (${oldScrollX}, ${oldScrollY})")
-//            if(oldScrollY == 0) {
-//                binding.btnMainFloating.animation = fadeOutAnimation
-//                binding.btnMainFloating.visibility = View.GONE
-//            } else {
-//                binding.btnMainFloating.animation = fadeInAnimation
-//                binding.btnMainFloating.visibility = View.VISIBLE
-//
-//            }
         }
 
         binding.btnMainFloating.setOnClickListener {
-//            binding.btnMainFloating.animation = fadeOutAnimation
             binding.postRecyclerView.scrollToPosition(0)
-//            binding.btnMainFloating.animate().alpha(0.0f).setDuration(1000)
-//            binding.btnMainFloating.visibility = View.INVISIBLE
-//            binding.btnMainFloating.visibility = View.GONE
-//            binding.btnMainFloating.visibility = View.VISIBLE
         }
-
-//        binding.btnMainFloating.isScrollbarFadingEnabled = true
-//
-////        binding.btnMainFloating.scrollBarFadeDuration = 3000
-//        binding.btnMainFloating.setOnClickListener {
-//        binding.btnMainFloating.visibility = View.INVISIBLE
-//
-////            binding.btnMainFloating.
-//
-//        }
 
         this.onBackPressedDispatcher.addCallback(this, backPressedCallback)
     }
@@ -241,89 +185,8 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    override fun onPause() {
-        Log.d("lifeCycle", "onPause()")
-        super.onPause()
-//        Log.d("lifeCycle", "start onPause()")
-//        val builder = AlertDialog.Builder(this)
-//        builder.setTitle("종료")
-//        builder.setMessage("정말 종료하시겠습니까?")
-//        builder.setIcon(R.drawable.ic_comment)
-//
-//        val listener = object : DialogInterface.OnClickListener {
-//            override fun onClick(dialog: DialogInterface?, which: Int) {
-//                when(which) {
-//                    DialogInterface.BUTTON_POSITIVE -> {
-//                        onStop()
-//                    }
-////                    DialogInterface.BUTTON_NEGATIVE -> {
-////
-////                    }
-////                    DialogInterface.BUTTON_NEUTRAL -> {
-////
-////                    }
-//                }
-//            }
-//        }
-//
-//        builder.setPositiveButton("확인", listener)
-//        builder.setNegativeButton("취소", null)
-////        builder.setNeutralButton("중립", null)
-//
-//        builder.show()
-//        Log.d("lifeCycle", "end onPause()")
-
-//        var builder = AlertDialog.Builder(this)
-//        builder.setTitle("기본 다이얼로그 타이틀")
-//        builder.setMessage("기본 다이얼로그 메세지")
-//        builder.setIcon(R.mipmap.ic_launcher)
-//
-//        val listener = object : DialogInterface.OnClickListener {
-//            override fun onClick(dialog: DialogInterface?, which: Int) {
-//                when(which) {
-//                    DialogInterface.BUTTON_POSITIVE -> binding.button.text = "BUTTON_POSITIVE"
-//                    DialogInterface.BUTTON_NEUTRAL -> binding.button.text = "BUTTON_NEUTRAL"
-//                    DialogInterface.BUTTON_NEGATIVE -> binding.button.text = "BUTTON_NEGATIVE"
-//                }
-//            }
-//        }
-//
-//        builder.setPositiveButton("Positive", listener)
-//        builder.setNegativeButton("Negative", listener)
-//        builder.setNeutralButton("Neutral", listener)
-//
-//        builder.show()
-
-    }
-
-    override fun onResume() {
-        Log.d("lifeCycle", "onResume()")
-        super.onResume()
-    }
-
-
     override fun onRestart() {
-        Log.d("lifeCycle", "onRestart()")
         binding.postRecyclerView.adapter?.notifyDataSetChanged()
         super.onRestart()
-    }
-
-    override fun finish() {
-        Log.d("lifeCycle", "onfinish()")
-        super.finish()
-    }
-    override fun onStop() {
-        super.onStop()
-        Log.d("lifeCycle", "onStop()")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d("lifeCycle", "onDestroy()")
-    }
-
-    override fun onDetachedFromWindow() {
-        super.onDetachedFromWindow()
-        Log.d("lifeCycle", "onDetachedFromWindow()")
     }
 }
