@@ -1,6 +1,6 @@
-build.grale이 gitignore를 전부 제거해도 추가되지 않아 따로 올립니다.
+project와 app의 build.grale이 겹쳐 gitignore를 전부 제거해도 추가되지 않아 따로 올립니다.
 
-build.gradle.kts
+build.gradle.kts(Mudule:app)
 
 ```
 
