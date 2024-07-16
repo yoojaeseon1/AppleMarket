@@ -38,8 +38,6 @@ class DetailActivity : AppCompatActivity() {
         binding.ivDetail.setImageResource(post.imageResource)
         binding.tvDetailTitle.text = post.title
         binding.tvDetailContent.text = post.content
-//        binding.userId.text = post.user.seller
-//        binding.userAddress.text = post.address
         binding.userId.text = post.user.nickname
         binding.userAddress.text = post.user.address
         binding.tvDetailPrice.text = AppleMarketUtils.makePriceFormat(post.price)
@@ -58,15 +56,9 @@ class DetailActivity : AppCompatActivity() {
                 binding.ivLike.backgroundTintList = resources.getColorStateList(R.color.likeChecked, null)
                 Snackbar.make(buttonView, "관심 목록에 추가되었습니다.", Snackbar.LENGTH_SHORT).show()
                 val like = Like(loginedUser)
-//                Log.d("like", "like.id = ${like.index}")
                 post.likes.add(like)
             } else {
                 binding.ivLike.backgroundTintList = resources.getColorStateList(R.color.likeUnChecked, null)
-//                for (post in Dummy.posts) {
-//                    if(post.index == currentPost.index) {
-//                        post.likes.add(Like(loginedUser))
-//                    }
-//                }
                 for ((likeIndex, like) in post.likes.withIndex()) {
                     if(like.user == loginedUser) {
                         post.likes.removeAt(likeIndex)
@@ -74,9 +66,6 @@ class DetailActivity : AppCompatActivity() {
                     }
                 }
             }
-
-//            Log.d("like", "likes.size = ${post.likes.size}")
-
         }
 
         binding.btnBackToMain.setOnClickListener {
