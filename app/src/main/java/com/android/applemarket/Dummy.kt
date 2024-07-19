@@ -6,10 +6,11 @@ class Dummy (){
     companion object {
         val posts = mutableListOf<Post>()
         var loginedUser = User()
+        var isInited = false
     }
 
     init {
-
+        isInited = true
         val user1 = User("id1", "password1", "대현동", "서울 서대문구 창천동")
         val user2 = User("id2", "password2", "안마담", "인천 계양구 귤현동")
         val user3 = User("id3", "password3", "코코유", "수성구 범어동")
@@ -46,6 +47,5 @@ class Dummy (){
         posts.add(post9)
         posts.add(post10)
     }
-
 
 }
