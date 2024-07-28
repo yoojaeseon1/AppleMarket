@@ -2,7 +2,6 @@ package com.android.applemarket
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.res.ColorStateList
@@ -12,9 +11,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
@@ -28,8 +25,6 @@ import com.android.applemarket.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    private val loginedUser = Dummy.loginedUser
-
     private val binding: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
@@ -37,8 +32,8 @@ class MainActivity : AppCompatActivity() {
     private val backPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
             val builder = AlertDialog.Builder(this@MainActivity)
-            builder.setTitle("종료")
-            builder.setMessage("정말 종료하시겠습니까?")
+            builder.setTitle(R.string.exit)
+            builder.setMessage(R.string.check_exit_application)
             builder.setIcon(R.drawable.ic_comment)
 
             val listener = object : DialogInterface.OnClickListener {
@@ -50,8 +45,8 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             }
-            builder.setPositiveButton("확인", listener)
-            builder.setNegativeButton("취소", null)
+            builder.setPositiveButton(R.string.ok, listener)
+            builder.setNegativeButton(R.string.cancel, null)
             builder.show()
         }
     }
@@ -61,9 +56,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(binding.root)
-
-        if(!Dummy.isInited)
-            Dummy()
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -86,8 +78,8 @@ class MainActivity : AppCompatActivity() {
             override fun onLongClick(view: View, index: Int) {
 
                 val builder = AlertDialog.Builder(this@MainActivity)
-                builder.setTitle("상품 삭제")
-                builder.setMessage("상품을 정말로 삭제하시겠습니까?")
+                builder.setTitle(R.string.main_long_click_title)
+                builder.setMessage(R.string.main_long_click_message)
                 builder.setIcon(R.drawable.ic_comment)
 
                 val listener = object : DialogInterface.OnClickListener {
@@ -107,8 +99,8 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
 
-                builder.setPositiveButton("확인", listener)
-                builder.setNegativeButton("취소", listener)
+                builder.setPositiveButton(R.string.ok, listener)
+                builder.setNegativeButton(R.string.cancel, listener)
                 builder.show()
             }
 
