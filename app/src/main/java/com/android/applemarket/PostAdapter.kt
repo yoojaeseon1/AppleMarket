@@ -1,7 +1,6 @@
 package com.android.applemarket
 
 import android.content.res.ColorStateList
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,8 +8,7 @@ import androidx.annotation.ColorRes
 import androidx.recyclerview.widget.RecyclerView
 import com.android.applemarket.databinding.PostRecyclerViewBinding
 
-class PostAdapter(val posts: MutableList<Post>) : RecyclerView.Adapter<PostAdapter.Holder>(){
-
+class PostAdapter(val posts: MutableList<Post>) : RecyclerView.Adapter<PostAdapter.PostItemViewHoler>(){
 
 
     interface PostClick{
@@ -26,9 +24,9 @@ class PostAdapter(val posts: MutableList<Post>) : RecyclerView.Adapter<PostAdapt
         return position.toLong()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostItemViewHoler {
         val binding = PostRecyclerViewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        val holder = Holder(binding)
+        val holder = PostItemViewHoler(binding)
         return holder
     }
 
@@ -36,7 +34,7 @@ class PostAdapter(val posts: MutableList<Post>) : RecyclerView.Adapter<PostAdapt
         return posts.size
     }
 
-    override fun onBindViewHolder(holder: Holder, position: Int) {
+    override fun onBindViewHolder(holder: PostItemViewHoler, position: Int) {
         val currentPost = posts[position]
         holder.binding.root.setOnClickListener {
             postClick?.onClick(it, position)
@@ -69,7 +67,7 @@ class PostAdapter(val posts: MutableList<Post>) : RecyclerView.Adapter<PostAdapt
 
 
 
-    inner class Holder(val binding: PostRecyclerViewBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class PostItemViewHoler(val binding: PostRecyclerViewBinding) : RecyclerView.ViewHolder(binding.root) {
         val title = binding.postTitle
         val image = binding.postImage
         val address = binding.postAddress
